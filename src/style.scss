@@ -1,0 +1,707 @@
+// variables
+$red: #d43939;
+$orange: #ff7300;
+$green: #32ba7c;
+$blue: #2b9db9;
+$aqua: #5abee6;
+$gray: #d8d8d8;
+$white: #ffffff;
+
+$remBase: 16px;
+
+$screen-xl: 1200px;
+$screen-lg: 960px;
+$screen-md: 620px;
+$screen-sm: 360px;
+
+// mixin
+@mixin below-xl {
+	@media (max-width: #{$screen-xl}) {
+		@content;
+	}
+}
+@mixin below-lg {
+	@media (max-width: #{$screen-lg}) {
+		@content;
+	}
+}
+@mixin below-md {
+	@media (max-width: #{$screen-md}) {
+		@content;
+	}
+}
+@mixin below-sm {
+	@media (max-width: #{$screen-sm}) {
+		@content;
+	}
+}
+@mixin button_custom($color: $green) {
+	color: $color;
+	overflow: hidden;
+	cursor: pointer;
+	background-color: lighten($color, 40%);
+
+	&:hover {
+		background-color: $color;
+		color: #050801;
+		box-shadow: 0 0 5px $color, 0 0 25px $color, 0 0 50px $color,
+			0 0 200px $color;
+	}
+
+	span {
+		position: absolute;
+		display: block;
+	}
+
+	span:nth-child(1) {
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 2px;
+		background: linear-gradient(90deg, transparent, $color);
+		animation: animate1 1s linear infinite;
+	}
+
+	span:nth-child(2) {
+		top: -100%;
+		right: 0;
+		width: 2px;
+		height: 100%;
+		background: linear-gradient(180deg, transparent, $color);
+		animation: animate2 1s linear infinite;
+		animation-delay: 0.25s;
+	}
+
+	span:nth-child(3) {
+		bottom: 0;
+		right: -100%;
+		width: 100%;
+		height: 2px;
+		background: linear-gradient(270deg, transparent, $color);
+		animation: animate3 1s linear infinite;
+		animation-delay: 0.5s;
+	}
+
+	span:nth-child(4) {
+		bottom: -100%;
+		left: 0;
+		width: 2px;
+		height: 100%;
+		background: linear-gradient(0deg, transparent, $color);
+		animation: animate4 1s linear infinite;
+		animation-delay: 0.75s;
+	}
+}
+
+@keyframes animate1 {
+	0% {
+		left: -100%;
+	}
+	50%,
+	100% {
+		left: 100%;
+	}
+}
+@keyframes animate2 {
+	0% {
+		top: -100%;
+	}
+	50%,
+	100% {
+		top: 100%;
+	}
+}
+@keyframes animate3 {
+	0% {
+		right: -100%;
+	}
+	50%,
+	100% {
+		right: 100%;
+	}
+}
+@keyframes animate4 {
+	0% {
+		bottom: -100%;
+	}
+	50%,
+	100% {
+		bottom: 100%;
+	}
+}
+
+// reset
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+html {
+	height: 100vh;
+}
+
+body {
+	margin: 0;
+	height: auto;
+	font-size: $remBase;
+	font-family: 'Acme', 'Microsoft JhengHei';
+	/* Background pattern from Toptal Subtle Patterns */
+	background-image: url('../img/bg.png');
+	position: relative;
+}
+
+// img {
+// 	max-width: 100%;
+// 	height: auto;
+// }
+
+canvas {
+	display: block;
+	max-width: 100%;
+}
+
+textarea {
+	resize: none;
+	width: 100%;
+	border: 1px solid $gray;
+	border-radius: 5px;
+
+	&:focus {
+		box-shadow: 0px 0px 5px 1px $aqua;
+		outline: 0;
+	}
+}
+
+label {
+	display: inline-block;
+	margin: 0.5rem 0;
+	user-select: none;
+}
+
+input[type='range'] {
+	width: 100%;
+	height: 30px;
+	background-color: transparent; // bar 會變透明
+	-webkit-appearance: none; // bar 會變成白色，剩下指標
+	cursor: pointer;
+
+	&:focus {
+		outline: none;
+	}
+
+	&::-webkit-slider-runnable-track {
+		background: $aqua;
+		height: 10px;
+	}
+
+	&::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		background: $white;
+		width: 16px;
+		height: 36px;
+		border: 1px solid #000000;
+		border-radius: 3px;
+		margin-top: -13px;
+	}
+
+	&::-moz-range-track {
+		background: $aqua;
+		height: 10px;
+	}
+	&::-moz-range-thumb {
+		width: 16px;
+		height: 36px;
+		background: $white;
+		border: 1px solid #000000;
+		border-radius: 3px;
+		cursor: pointer;
+	}
+}
+
+input[type='color'] {
+	background-color: $gray;
+	border: 0;
+	border-radius: 5px;
+	cursor: pointer;
+
+	&:focus {
+		box-shadow: 0px 0px 5px 1px $aqua;
+		outline: 0;
+	}
+}
+
+input[type='checkbox'] {
+	position: absolute;
+	z-index: -1000;
+	left: -1000px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	width: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+
+	+ label {
+		background-image: url('../img/checkbox.png');
+		user-select: none;
+		padding-right: 45px;
+		height: 24px;
+		width: 190px;
+		display: inline-block;
+		line-height: 24px;
+		background-repeat: no-repeat;
+		background-position: 150px 0;
+		font-size: 24px;
+		vertical-align: middle;
+		cursor: pointer;
+	}
+
+	&:checked + label {
+		background-position: 150px -24px;
+	}
+}
+
+select {
+	border-radius: 10px;
+	cursor: pointer;
+	outline: none;
+	padding: 4px 35px 4px 15px;
+	border: 1px solid $aqua;
+	background-color: #fff;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+
+.layout_input {
+	display: flex;
+	align-items: center;
+
+	label {
+		width: 150px;
+	}
+}
+
+.hack_select {
+	position: relative;
+	display: flex;
+	align-items: center;
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: 2px;
+		width: 0;
+		height: 0;
+		right: 10px;
+		bottom: 0;
+		margin: auto;
+		border-style: solid;
+		border-width: 5px 5px 0 5px;
+		border-color: $aqua transparent transparent transparent;
+		pointer-events: none;
+	}
+}
+
+button {
+	outline: none;
+
+	&.black {
+		border: none;
+		box-shadow: 0px 10px 14px -7px #000000;
+		background: linear-gradient(to bottom, #000000 5%, #525252 100%);
+		border-radius: 8px;
+		display: inline-block;
+		cursor: pointer;
+		color: $white;
+		font-family: Arial;
+		font-size: 16px;
+		font-weight: bold;
+		padding: 4px;
+		width: 120px;
+		text-decoration: none;
+		text-shadow: 0px -1px 0px #2f6627;
+
+		&:hover {
+			background: linear-gradient(to bottom, #525252 5%, #000000 100%);
+		}
+
+		&:active {
+			position: relative;
+			top: 1px;
+		}
+	}
+
+	&.white {
+		border: none;
+		box-shadow: 0px 10px 14px -7px #000000;
+		background: linear-gradient(to bottom, $white 5%, #d9d6d9 100%);
+		border-radius: 8px;
+		display: inline-block;
+		cursor: pointer;
+		color: #000000;
+		font-family: Arial;
+		font-size: 16px;
+		font-weight: bold;
+		padding: 4px;
+		width: 120px;
+		text-decoration: none;
+		text-shadow: 0px -1px 0px #2f6627;
+
+		&:hover {
+			background: linear-gradient(to bottom, #d9d6d9 5%, $white 100%);
+		}
+
+		&:active {
+			position: relative;
+			top: 1px;
+		}
+	}
+
+	&.transparent {
+		border: none;
+		box-shadow: 0px 10px 14px -7px #000000;
+		background-color: transparent;
+		border-radius: 8px;
+		display: inline-block;
+		cursor: pointer;
+		color: #000000;
+		font-family: Arial;
+		font-size: 16px;
+		font-weight: bold;
+		padding: 4px;
+		width: 120px;
+		text-decoration: none;
+		text-shadow: 0px -1px 0px #2f6627;
+
+		&:hover {
+			box-shadow: 0px 10px 14px -5px #000000;
+		}
+
+		&:active {
+			position: relative;
+			top: 1px;
+		}
+	}
+}
+
+// content css
+h1 {
+	text-align: center;
+	font-size: 3rem;
+	padding: 1rem 1.5rem;
+	background-color: rgba($aqua, 0.2);
+	text-shadow: 1px 1px 5px #000;
+  color: $aqua;
+  width: 100%;
+
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+
+	@include below-xl {
+		flex-direction: column;
+		align-items: center;
+	}
+}
+
+// diaplay panel
+.panel_display {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 50%;
+	// background-color: rgba(0, 0, 0, 0.3);
+	margin: 1rem;
+	padding: 1rem;
+	height: auto;
+
+	@include below-xl {
+		width: 100%;
+	}
+}
+
+.div_img-preview {
+	height: auto;
+	min-height: 300px;
+	min-width: 500px;
+	// max-width: 500px;
+	display: flex;
+	margin: 0 auto;
+	position: relative;
+	background-color: #fff;
+	border: 5px dashed $red;
+	box-shadow: 5px 5px 10px #000;
+	border-radius: 10px;
+
+	@include below-md {
+		width: 100%;
+		min-width: auto;
+	}
+
+	.loading {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+		display: none;
+		color: $orange;
+
+		&.active {
+			display: block;
+		}
+	}
+
+	.hack_btn-upload {
+		width: 100%;
+		// position: absolute;
+		// top: 50%;
+		// transform: translateY(-50%);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		user-select: none;
+
+		.input_file {
+			width: 0.1px;
+			height: 0.1px;
+			opacity: 0;
+			overflow: hidden;
+			position: absolute;
+			z-index: -1;
+
+			+ label * {
+				pointer-events: none;
+			}
+		}
+
+		.label_input-file {
+			margin: 0;
+			text-align: right;
+			padding: 0.8rem;
+			width: 200px;
+			position: relative;
+			font-size: 1.25em;
+			font-weight: 700;
+			margin-bottom: 0.5rem;
+
+			@include button_custom($red);
+		}
+	}
+}
+
+.hint_size {
+	margin: 1rem;
+	font-size: 1.5rem;
+	display: none;
+}
+
+.div_btn-group {
+	display: none;
+	justify-content: center;
+	margin-top: 1rem;
+
+	.hack_btn-renew {
+		display: flex;
+		justify-content: center;
+
+		.input_file {
+			width: 0.1px;
+			height: 0.1px;
+			opacity: 0;
+			overflow: hidden;
+			position: absolute;
+			z-index: -1;
+
+			+ label * {
+				pointer-events: none;
+			}
+		}
+
+		.label_input-file {
+			margin: 0;
+			text-align: center;
+			padding: 0.8rem;
+			width: 160px;
+			position: relative;
+			font-size: 1.25em;
+			font-weight: 700;
+			color: #000000;
+			margin-right: 1rem;
+
+      @include button_custom($red);
+      
+      @include below-md {
+        width: 140px;
+      }
+		}
+	}
+
+	.btn_download {
+		margin: 0;
+		text-align: center;
+		padding: 0.8rem;
+		width: 160px;
+		position: relative;
+		font-size: 1.25em;
+		font-weight: 700;
+		color: #000000;
+		background-color: transparent;
+		border: 0;
+		font-family: inherit;
+
+    @include button_custom;
+    
+    @include below-md {
+      width: 140px;
+    }
+	}
+}
+
+// control panel
+.panel_control {
+	width: 50%;
+	margin: 1rem;
+	padding: 1rem;
+  font-size: 1.5rem;
+  
+  @include below-xl {
+    width: 80%;
+  }
+
+  @include below-md {
+    width: 100%;
+  }
+}
+
+.control_top-text {
+	padding: 0.5rem;
+	border-radius: 5px;
+	background-color: rgba(255, 255, 255, 0.5);
+	box-shadow: 2px 2px 5px #000;
+}
+
+.control_bottom-text {
+	margin-top: 1.5rem;
+	padding: 0.5rem;
+	border-radius: 5px;
+	background-color: rgba(255, 255, 255, 0.5);
+	box-shadow: 2px 2px 5px #000;
+}
+
+// modal
+.modal-bg {
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	top: 0;
+  left: 0;
+  z-index: 10;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+
+	&.show {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+.modal {
+	position: relative;
+	background-color: #fff;
+	width: 500px;
+	height: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	border-radius: 5px;
+  background-color: lighten($red, 20%);
+  
+  @include below-md {
+    width: 90%;
+  }
+
+	.modal-close {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		font-weight: bold;
+		cursor: pointer;
+	}
+
+	.modal-content {
+		margin: 1rem;
+		font-size: 1.5rem;
+    color: #fff;
+    text-align: center;
+	}
+
+	.btn_ok {
+		margin: 0;
+		text-align: center;
+		padding: 0.5rem;
+		width: 100px;
+		position: relative;
+		font-size: 1.25em;
+		font-weight: 700;
+		color: #000000;
+		background-color: transparent;
+		border: 0;
+		font-family: inherit;
+
+		@include button_custom($blue);
+	}
+}
+
+// preload
+.preload {
+	position: absolute;
+	visibility: hidden;
+
+	.acme {
+    font-family: 'Acme';
+	}
+
+	.bangers {
+    font-family: 'Bangers';
+	}
+
+	.roboto {
+    font-family: 'Roboto';
+	}
+}
+
+.btn_top {
+	display: block;
+	position: fixed;
+	padding: 7px 8px;
+	width: 30px;
+	height: 30px;
+	right: 20px;
+	bottom: 20px;
+	border-radius: 50%;
+	background-color: $red;
+	color: $white;
+	cursor: pointer;
+	z-index: 5;
+	opacity: 0;
+	transform: translateY(100px);
+	transition: all 0.5s ease;
+
+	&.show {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
