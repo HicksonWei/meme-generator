@@ -1,5 +1,6 @@
 const { src, dest, series } = require('gulp')
 const htmlreplace = require('gulp-html-replace')
+const htmlmin = require('gulp-htmlmin')
 // const sass = require('gulp-sass')
 const postcss = require('gulp-postcss')
 const autoprefixer = require('autoprefixer')
@@ -22,6 +23,7 @@ function htmlCompiler() {
 				}
 			})
 		)
+		.pipe(htmlmin({ collapseWhitespace: true }))
 		.pipe(dest('public/'))
 }
 
@@ -68,3 +70,5 @@ exports.build = series(
 	imageMinify,
 	deploy
 )
+
+exports.html = htmlCompiler
