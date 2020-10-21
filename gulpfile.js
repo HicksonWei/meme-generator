@@ -16,7 +16,10 @@ function htmlCompiler() {
 		.pipe(
 			htmlreplace({
 				css: './css/style.css',
-				js: './js/bundle.js'
+				js: {
+					src: './js/bundle.js',
+					tpl: '<script src="%s" defer></script>'
+				}
 			})
 		)
 		.pipe(dest('public/'))
