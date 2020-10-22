@@ -70,5 +70,3 @@ exports.build = series(
 	imageMinify,
 	deploy
 )
-
-exports.html = htmlCompiler
