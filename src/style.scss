@@ -152,11 +152,6 @@ body {
 	position: relative;
 }
 
-// img {
-// 	max-width: 100%;
-// 	height: auto;
-// }
-
 canvas {
 	display: block;
 	max-width: 100%;
@@ -429,7 +424,6 @@ h1 {
 	height: auto;
 	min-height: 300px;
 	min-width: 500px;
-	// max-width: 500px;
 	display: flex;
 	margin: 0 auto;
 	position: relative;
@@ -458,9 +452,6 @@ h1 {
 
 	.hack_btn-upload {
 		width: 100%;
-		// position: absolute;
-		// top: 50%;
-		// transform: translateY(-50%);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

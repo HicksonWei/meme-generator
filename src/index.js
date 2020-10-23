@@ -73,7 +73,7 @@ function init() {
 				img.onload = function () {
 					loading.classList.remove('active')
 					if (img.width / img.height > 1.78 || img.width / img.height < 0.56) {
-						showAlert('wrong size')
+						showAlert('Invalid width/height ratio. (16:9 ~ 9:16)')
 						return
 					}
 
@@ -82,6 +82,7 @@ function init() {
 
 					imgPreviewDiv.style.minHeight = 'auto'
 					imgPreviewDiv.style.minWidth = 'auto'
+					imgPreviewDiv.style.width = 'auto'
 					uploadBtnBlock.style.display = 'none'
 					btnGroupDiv.style.display = 'flex'
 
@@ -103,8 +104,6 @@ function init() {
 
 	imgRenew.addEventListener('change', function () {
 		const file = this.files[0]
-		console.log(file.name)
-		console.log(file.type)
 		if (file) {
 			if (file.size / 1024 / 1024 > 3) {
 				showAlert('The file size exceeds the maximum limit (3MB).')
